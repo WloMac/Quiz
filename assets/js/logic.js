@@ -4,13 +4,10 @@ const questionSpot = document.querySelector("#questions")
 const title = document.querySelector("#question-title")
 const choices = document.querySelector("#choices")
 const endScreen = document.querySelector("#end-screen")
-const timeCounter = document.querySelector("#time")
+const timeCounterDisplay = document.querySelector("#time")
 
 // Timer
 let timer = 120;
-let intervalId;
-
-
 
 // variable for starting score
 var questions = [
@@ -37,19 +34,22 @@ var questions = [
 ]
 
 let index = 0;
-
+let intervalId;
 console.log(intervalId);
-
+//Timer
+function timeCounter() {
+    intervalId = setInterval(function() {
+    timer--;
+    timeCounterDisplay.textContent = timer;   
+}, 1000) 
+}
 
 
 function start(event) {
     event.preventDefault()
     // Timer
-    intervalId = setInterval(function() {
-        timer--;
-        timeCounter.textContent = timer;   
-    }, 1000) 
-
+    timeCounter();
+    console.log(intervalId)
     choices.innerHTML = ""
     startScreen.setAttribute("class", "hide")
     questionSpot.setAttribute("class", "show")
