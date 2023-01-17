@@ -4,10 +4,15 @@ const questionSpot = document.querySelector("#questions")
 const title = document.querySelector("#question-title")
 const choices = document.querySelector("#choices")
 const endScreen = document.querySelector("#end-screen")
+const timeCounter = document.querySelector("#time")
+
+// Timer
+let timer = 120;
+
+
+
 
 // variable for starting score
-
-
 var questions = [
     {
         question: "What color is the sky?",
@@ -25,6 +30,12 @@ let index = 0;
 
 function start(event) {
     event.preventDefault()
+    // Timer
+    setInterval(function() {
+        timer--;
+        timeCounter.textContent = timer;   
+    }, 1000)
+
     choices.innerHTML = ""
     startScreen.setAttribute("class", "hide")
     questionSpot.setAttribute("class", "show")
@@ -40,7 +51,7 @@ function start(event) {
             if (choice === questions[index].correct) {
                 console.log("Correct!")
                 index++
-                // score needs to do something
+                timer = timer + 10;
                 if (index == questions.length) {
                     index = 0
                     endQuiz()
@@ -51,7 +62,7 @@ function start(event) {
                 index++
                 if (index == questions.length) {
                     index = 0
-                    // score needs to do something
+                    timer = timer - 15
                     endQuiz()
                 } else {
                     start(event, index)
